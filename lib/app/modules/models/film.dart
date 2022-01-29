@@ -1,24 +1,28 @@
 import 'dart:convert';
 
 class Film {
-  int id;
+  int? id;
   int apiId;
   String title;
+  bool favorite = false;
   Film({
-    required this.id,
+    this.id,
     required this.apiId,
     required this.title,
+    required this.favorite,
   });
 
   Film copyWith({
     int? id,
     int? apiId,
     String? title,
+    bool? favorite,
   }) {
     return Film(
       id: id ?? this.id,
       apiId: apiId ?? this.apiId,
       title: title ?? this.title,
+      favorite: favorite ?? this.favorite,
     );
   }
 
@@ -27,14 +31,15 @@ class Film {
       'id': id,
       'apiId': apiId,
       'title': title,
+      'favorite': favorite,
     };
   }
 
   factory Film.fromMap(Map<String, dynamic> map) {
     return Film(
-      id: map['id']?.toInt() ?? 0,
-      apiId: map['apiId']?.toInt() ?? 0,
+      apiId: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
+      favorite: map['favorite'] ?? false,
     );
   }
 
@@ -43,7 +48,9 @@ class Film {
   factory Film.fromJson(String source) => Film.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Film(id: $id, apiId: $apiId, title: $title)';
+  String toString() {
+    return 'Film(id: $id, apiId: $apiId, title: $title, favorite: $favorite)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -52,9 +59,12 @@ class Film {
     return other is Film &&
         other.id == id &&
         other.apiId == apiId &&
-        other.title == title;
+        other.title == title &&
+        other.favorite == favorite;
   }
 
   @override
-  int get hashCode => id.hashCode ^ apiId.hashCode ^ title.hashCode;
+  int get hashCode {
+    return id.hashCode ^ apiId.hashCode ^ title.hashCode ^ favorite.hashCode;
+  }
 }
