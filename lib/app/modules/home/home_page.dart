@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:star_wars/app/modules/components/navbar.dart';
+import 'package:star_wars/app/modules/components/topPanel.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
+import 'package:star_wars/app/modules/pages/characters_page.dart';
+import 'package:star_wars/app/modules/pages/favorites_page.dart';
+import 'package:star_wars/app/modules/pages/films_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -15,9 +20,34 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Star Wars'),
+        body: Flex(
+      direction: Axis.vertical,
+      children: [
+        TopPanel(
+          store: store,
         ),
-        body: Container());
+        Observer(builder: (_) {
+          if (store.selectPage == Pages.WebView ||
+              store.selectPage == Pages.Avatar) {
+            return Container();
+          }
+          return NavBar(
+            store: store,
+          );
+        }),
+        Expanded(child: Observer(builder: (_) {
+          if (store.selectPage == Pages.Characters) {
+            return CharactersPage();
+          }
+          if (store.selectPage == Pages.Films) {
+            return FilmsPage();
+          }
+          if (store.selectPage == Pages.Favorites) {
+            return FavoritesPage();
+          }
+          return Container();
+        }))
+      ],
+    ));
   }
 }

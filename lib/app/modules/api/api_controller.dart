@@ -15,27 +15,27 @@ class ApiController {
     var response = await get("films");
     List<Film> films = [];
     for (var item in response.data["results"]) {
-      films.add(Film.fromJson(item));
+      films.add(Film.fromMap(item));
     }
     return films;
   }
 
   Future<Film> getFilm(int id) async {
     var response = await get("films/$id");
-    return Film.fromJson(response.data);
+    return Film.fromMap(response.data);
   }
 
   Future<List<Character>> getCharacters() async {
     var response = await get("people");
     List<Character> characters = [];
     for (var item in response.data["results"]) {
-      characters.add(Character.fromJson(item));
+      characters.add(Character.fromMap(item));
     }
     return characters;
   }
 
   Future<Character> getCharacter(int id) async {
     var response = await get("people/$id");
-    return Character.fromJson(response.data);
+    return Character.fromMap(response.data);
   }
 }
