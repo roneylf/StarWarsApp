@@ -1,11 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_test/modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:star_wars/app/app_module.dart';
 import 'package:star_wars/app/modules/api/api_controller.dart';
-import 'package:star_wars/app/modules/api/api_module.dart';
 
 void main() {
-  initModule(ApiModule());
+  initModule(AppModule());
 
   // ignore: unused_local_variable
   ApiController api = Modular.get<ApiController>();

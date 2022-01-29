@@ -4,12 +4,12 @@ class Film {
   int? id;
   int apiId;
   String title;
-  bool favorite = false;
+  bool favorite;
   Film({
     this.id,
     required this.apiId,
     required this.title,
-    required this.favorite,
+    this.favorite = false,
   });
 
   Film copyWith({
