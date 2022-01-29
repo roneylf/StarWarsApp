@@ -16,7 +16,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Counter'),
+          title: Text('Star Wars'),
         ),
         body: Container());
   }
