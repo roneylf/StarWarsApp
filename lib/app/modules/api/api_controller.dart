@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:star_wars/app/modules/models/character.dart';
+import 'package:star_wars/app/modules/models/film.dart';
 
 class ApiController {
   final String BASE_URL = "https://swapi.dev/api/";
@@ -7,5 +9,33 @@ class ApiController {
 
   Future<Response> get(String url) async {
     return await dio.get(BASE_URL + url);
+  }
+
+  Future<List<Film>> getFilms() async {
+    var response = await get("films");
+    List<Film> films = [];
+    for (var item in response.data["results"]) {
+      films.add(Film.fromJson(item));
+    }
+    return films;
+  }
+
+  Future<Film> getFilm(int id) async {
+    var response = await get("films/$id");
+    return Film.fromJson(response.data);
+  }
+
+  Future<List<Character>> getCharacters() async {
+    var response = await get("people");
+    List<Character> characters = [];
+    for (var item in response.data["results"]) {
+      characters.add(Character.fromJson(item));
+    }
+    return characters;
+  }
+
+  Future<Character> getCharacter(int id) async {
+    var response = await get("people/$id");
+    return Character.fromJson(response.data);
   }
 }
