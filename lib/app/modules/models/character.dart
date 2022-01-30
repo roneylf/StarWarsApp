@@ -3,25 +3,25 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 
 class Character {
-  int? id;
+  int? uid;
   int apiId;
   String name;
   bool favorite = false;
   Character({
-    this.id,
+    this.uid,
     required this.apiId,
     required this.name,
     required this.favorite,
   });
 
   Character copyWith({
-    int? id,
+    int? uid,
     int? apiId,
     String? name,
     bool? favorite,
   }) {
     return Character(
-      id: id ?? this.id,
+      uid: uid ?? this.uid,
       apiId: apiId ?? this.apiId,
       name: name ?? this.name,
       favorite: favorite ?? this.favorite,
@@ -30,7 +30,7 @@ class Character {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'apiId': apiId,
       'name': name,
       'favorite': favorite,
@@ -39,6 +39,7 @@ class Character {
 
   factory Character.fromMap(Map<String, dynamic> map) {
     return Character(
+      uid: map['uid'] as int,
       apiId: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       favorite: map['favorite'] ?? false,
@@ -52,7 +53,7 @@ class Character {
 
   @override
   String toString() {
-    return 'Character(id: $id, apiId: $apiId, name: $name, favorite: $favorite)';
+    return 'Character(uid: $uid, apiId: $apiId, name: $name, favorite: $favorite)';
   }
 
   @override
@@ -60,7 +61,7 @@ class Character {
     if (identical(this, other)) return true;
 
     return other is Character &&
-        other.id == id &&
+        other.uid == uid &&
         other.apiId == apiId &&
         other.name == name &&
         other.favorite == favorite;
@@ -68,6 +69,6 @@ class Character {
 
   @override
   int get hashCode {
-    return id.hashCode ^ apiId.hashCode ^ name.hashCode ^ favorite.hashCode;
+    return uid.hashCode ^ apiId.hashCode ^ name.hashCode ^ favorite.hashCode;
   }
 }

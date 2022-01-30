@@ -1,25 +1,25 @@
 import 'dart:convert';
 
 class Film {
-  int? id;
+  int? uid;
   int apiId;
   String title;
   bool favorite;
   Film({
-    this.id,
+    this.uid,
     required this.apiId,
     required this.title,
     this.favorite = false,
   });
 
   Film copyWith({
-    int? id,
+    int? uid,
     int? apiId,
     String? title,
     bool? favorite,
   }) {
     return Film(
-      id: id ?? this.id,
+      uid: uid ?? this.uid,
       apiId: apiId ?? this.apiId,
       title: title ?? this.title,
       favorite: favorite ?? this.favorite,
@@ -28,7 +28,7 @@ class Film {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'apiId': apiId,
       'title': title,
       'favorite': favorite,
@@ -37,6 +37,7 @@ class Film {
 
   factory Film.fromMap(Map<String, dynamic> map) {
     return Film(
+      uid: map['uid'] as int,
       apiId: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
       favorite: map['favorite'] ?? false,
@@ -49,7 +50,7 @@ class Film {
 
   @override
   String toString() {
-    return 'Film(id: $id, apiId: $apiId, title: $title, favorite: $favorite)';
+    return 'Film(uid: $uid, apiId: $apiId, title: $title, favorite: $favorite)';
   }
 
   @override
@@ -57,7 +58,7 @@ class Film {
     if (identical(this, other)) return true;
 
     return other is Film &&
-        other.id == id &&
+        other.uid == uid &&
         other.apiId == apiId &&
         other.title == title &&
         other.favorite == favorite;
@@ -65,6 +66,6 @@ class Film {
 
   @override
   int get hashCode {
-    return id.hashCode ^ apiId.hashCode ^ title.hashCode ^ favorite.hashCode;
+    return uid.hashCode ^ apiId.hashCode ^ title.hashCode ^ favorite.hashCode;
   }
 }
