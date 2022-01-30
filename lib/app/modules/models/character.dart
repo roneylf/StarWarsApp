@@ -3,24 +3,24 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 
 class Character {
-  int? uid;
+  int? id;
 
   String name;
   bool favorite = false;
   Character({
-    this.uid,
+    this.id,
     required this.name,
     required this.favorite,
   });
 
   Character copyWith({
-    int? uid,
+    int? id,
     int? apiId,
     String? name,
     bool? favorite,
   }) {
     return Character(
-      uid: uid ?? this.uid,
+      id: id ?? this.id,
       name: name ?? this.name,
       favorite: favorite ?? this.favorite,
     );
@@ -35,7 +35,7 @@ class Character {
 
   factory Character.fromMap(Map<String, dynamic> map) {
     return Character(
-      uid: map['uid'] != null ? map['uid'] as int : null,
+      id: map['id'] != null ? map['id'] as int : null,
       name: map['name'] ?? '',
       //se não for nulo, verifca o tipo e converte para bool
       //necessario fazer isso pois o sqflite não aceita bool
@@ -52,7 +52,7 @@ class Character {
 
   @override
   String toString() {
-    return 'Character(uid: $uid, name: $name, favorite: $favorite)';
+    return 'Character(id: $id, name: $name, favorite: $favorite)';
   }
 
   @override
@@ -60,13 +60,13 @@ class Character {
     if (identical(this, other)) return true;
 
     return other is Character &&
-        other.uid == uid &&
+        other.id == id &&
         other.name == name &&
         other.favorite == favorite;
   }
 
   @override
   int get hashCode {
-    return uid.hashCode ^ name.hashCode ^ favorite.hashCode;
+    return id.hashCode ^ name.hashCode ^ favorite.hashCode;
   }
 }

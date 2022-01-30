@@ -12,7 +12,7 @@ void main() {
   test("DB test", () async {
     final db = Modular.get<DbController>();
 
-    await db.insertFilm(Film(uid: 1, title: "A New Hope", apiId: 1));
+    await db.insertFilm(Film(id: 1, title: "A New Hope"));
     List films = await db.getFilms();
     expect(films.length, 1);
   });

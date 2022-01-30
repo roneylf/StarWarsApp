@@ -20,8 +20,8 @@ class ApiController {
     return films;
   }
 
-  Future<Film> getFilm(int uid) async {
-    var response = await get("films/$uid");
+  Future<Film> getFilm(int id) async {
+    var response = await get("films/$id");
     return Film.fromMap(response.data);
   }
 
@@ -34,8 +34,8 @@ class ApiController {
     return characters;
   }
 
-  Future<Character> getCharacter(int uid) async {
-    var response = await get("people/$uid");
+  Future<Character> getCharacter(int id) async {
+    var response = await get("people/$id");
     return Character.fromMap(response.data);
   }
 }

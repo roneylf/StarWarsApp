@@ -1,23 +1,23 @@
 import 'dart:convert';
 
 class Film {
-  int? uid;
+  int? id;
   String title;
   bool favorite;
   Film({
-    this.uid,
+    this.id,
     required this.title,
     this.favorite = false,
   });
 
   Film copyWith({
-    int? uid,
+    int? id,
     int? apiId,
     String? title,
     bool? favorite,
   }) {
     return Film(
-      uid: uid ?? this.uid,
+      id: id ?? this.id,
       title: title ?? this.title,
       favorite: favorite ?? this.favorite,
     );
@@ -32,7 +32,7 @@ class Film {
 
   factory Film.fromMap(Map<String, dynamic> map) {
     return Film(
-      uid: map['uid'] != null ? map['uid'] as int : null,
+      id: map['id'] != null ? map['id'] as int : null,
       title: map['title'] ?? '',
       //se não for nulo, verifca o tipo e converte para bool
       //necessario fazer isso pois o sqflite não aceita bool
@@ -48,7 +48,7 @@ class Film {
 
   @override
   String toString() {
-    return 'Film(uid: $uid,  title: $title, favorite: $favorite)';
+    return 'Film(id: $id,  title: $title, favorite: $favorite)';
   }
 
   @override
@@ -56,13 +56,13 @@ class Film {
     if (identical(this, other)) return true;
 
     return other is Film &&
-        other.uid == uid &&
+        other.id == id &&
         other.title == title &&
         other.favorite == favorite;
   }
 
   @override
   int get hashCode {
-    return uid.hashCode ^ title.hashCode ^ favorite.hashCode;
+    return id.hashCode ^ title.hashCode ^ favorite.hashCode;
   }
 }

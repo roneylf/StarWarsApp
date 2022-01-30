@@ -26,20 +26,21 @@ class DbController {
     String path = join(databasesPath, "database.db");
     print(path);
     var bd = await openDatabase(path,
-        version: 4, onCreate: _onCreate, onOpen: _onOpen);
+        version: 7, onCreate: _onCreate, onOpen: _onOpen);
     return bd;
   }
 
   void _onOpen(Database db) {
+    return;
     db.rawDelete("DELETE FROM characters");
     db.rawDelete("DELETE FROM films");
   }
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-        "CREATE TABLE films(uid INTEGER PRIMARY KEY, apiuid INTEGER, title TEXT, favorite INTEGER)");
+        "CREATE TABLE films(id INTEGER PRIMARY KEY,  title TEXT, favorite INTEGER)");
     await db.execute(
-        "CREATE TABLE characters(uid INTEGER PRIMARY KEY, apiuid INTEGER, name TEXT, favorite INTEGER)");
+        "CREATE TABLE characters(id INTEGER PRIMARY KEY,  name TEXT, favorite INTEGER)");
   }
 
   Future<int> insertFilm(Film film) async {
@@ -57,6 +58,7 @@ class DbController {
   Future<List<Film>> getFilms() async {
     var bd = await database;
     var result = await bd.query("films");
+    print(result);
     List<Film> films =
         result.isNotEmpty ? result.map((c) => Film.fromMap(c)).toList() : [];
     return films;
@@ -71,43 +73,43 @@ class DbController {
     return characters;
   }
 
-  Future<Film?> getFilm(int uid) async {
+  Future<Film?> getFilm(int id) async {
     var bd = await database;
-    var result = await bd.query("films", where: "uid = ?", whereArgs: [uid]);
+    var result = await bd.query("films", where: "id = ?", whereArgs: [id]);
     return result.isNotEmpty ? Film.fromMap(result.first) : null;
   }
 
-  Future<Character?> getCharacter(int uid) async {
+  Future<Character?> getCharacter(int id) async {
     var bd = await database;
-    var result =
-        await bd.query("characters", where: "uid = ?", whereArgs: [uid]);
+    var result = await bd.query("characters", where: "id = ?", whereArgs: [id]);
     return result.isNotEmpty ? Character.fromMap(result.first) : null;
   }
 
   Future<int> updateFilm(Film film) async {
+    print("Filme para atualizar: ${film.id}");
     var bd = await database;
     var result = await bd
-        .update("films", film.toMap(), where: "uid = ?", whereArgs: [film.uid]);
+        .update("films", film.toMap(), where: "id = ?", whereArgs: [film.id]);
     return result;
   }
 
   Future<int> updateCharacter(Character character) async {
     var bd = await database;
     var result = await bd.update("characters", character.toMap(),
-        where: "uid = ?", whereArgs: [character.uid]);
+        where: "id = ?", whereArgs: [character.id]);
     return result;
   }
 
-  Future<int> deleteFilm(int uid) async {
+  Future<int> deleteFilm(int id) async {
     var bd = await database;
-    var result = await bd.delete("films", where: "uid = ?", whereArgs: [uid]);
+    var result = await bd.delete("films", where: "id = ?", whereArgs: [id]);
     return result;
   }
 
-  Future<int> deleteCharacter(int uid) async {
+  Future<int> deleteCharacter(int id) async {
     var bd = await database;
     var result =
-        await bd.delete("characters", where: "uid = ?", whereArgs: [uid]);
+        await bd.delete("characters", where: "id = ?", whereArgs: [id]);
     return result;
   }
 }

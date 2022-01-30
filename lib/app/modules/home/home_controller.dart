@@ -16,8 +16,8 @@ class HomeController {
     var filmsApi = await api.getFilms();
     for (var f in filmsApi) {
       if (!filmsDb.any((fDb) => fDb.title == f.title)) {
-        await db.insertFilm(f);
-        store.addFilm(f);
+        int id = await db.insertFilm(f);
+        store.addFilm(f.copyWith(id: id));
       }
     }
   }
@@ -28,8 +28,8 @@ class HomeController {
     var charactersApi = await api.getCharacters();
     for (var c in charactersApi) {
       if (!charactersDb.any((cDb) => cDb.name == c.name)) {
-        await db.insertCharacter(c);
-        store.addCharacter(c);
+        int id = await db.insertCharacter(c);
+        store.addCharacter(c.copyWith(id: id));
       }
     }
   }
@@ -39,12 +39,7 @@ class HomeController {
     for (var c in store.characters) {
       if (c.name == character.name) {
         c.favorite = !c.favorite;
-      }
-    }
-    for (var cDb in charactersDb) {
-      if (cDb.name == character.name) {
-        cDb.favorite = character.favorite;
-        db.updateCharacter(cDb);
+        db.updateCharacter(c);
       }
     }
   }
@@ -54,12 +49,7 @@ class HomeController {
     for (var f in store.films) {
       if (f.title == film.title) {
         f.favorite = !f.favorite;
-      }
-    }
-    for (var fDb in filmsDb) {
-      if (fDb.title == film.title) {
-        fDb.favorite = film.favorite;
-        db.updateFilm(fDb);
+        db.updateFilm(f);
       }
     }
   }

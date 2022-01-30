@@ -20,17 +20,26 @@ abstract class HomeStoreBase with Store {
   void setSelectPage(Pages page) => selectPage = page;
 
   @action
-  void setFilms(List<Film> films) => this.films.addAll(films);
+  void setFilms(List<Film> films) {
+    print("filmes sendo adionado no BD");
+    print(films);
+    this.films.addAll(films);
+  }
 
   @action
   void setCharacters(List<Character> characters) =>
       this.characters.addAll(characters);
 
   @action
-  void addCharacter(Character character) => this.characters.add(character);
+  void addCharacter(Character character) {
+    this.characters.add(character);
+  }
 
   @action
-  void addFilm(Film film) => this.films.add(film);
+  void addFilm(Film film) {
+    this.films.add(film);
+    print(film.id);
+  }
 }
 
 enum Pages { Films, Characters, Favorites, WebView, Avatar }
