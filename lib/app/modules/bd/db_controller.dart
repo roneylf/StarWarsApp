@@ -3,21 +3,21 @@ import 'package:path/path.dart';
 import 'package:star_wars/app/modules/models/character.dart';
 import 'package:star_wars/app/modules/models/film.dart';
 
-class BdController {
-  static final BdController _instance = BdController._internal();
+class DbController {
+  static final DbController _instance = DbController._internal();
 
-  factory BdController() => _instance;
+  factory DbController() => _instance;
 
-  BdController._internal();
+  DbController._internal();
 
-  late Database _database;
+  Database? _database;
 
   Future<Database> get database async {
     if (_database != null) {
-      return _database;
+      return _database!;
     } else {
       _database = await initBd();
-      return _database;
+      return _database!;
     }
   }
 

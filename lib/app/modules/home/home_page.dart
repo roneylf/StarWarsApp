@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars/app/modules/components/navbar.dart';
 import 'package:star_wars/app/modules/components/topPanel.dart';
+import 'package:star_wars/app/modules/home/home_controller.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
 import 'package:star_wars/app/modules/pages/characters_page.dart';
 import 'package:star_wars/app/modules/pages/favorites_page.dart';
@@ -17,6 +18,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  final home_controller = Modular.get<HomeController>();
+
+  @override
+  void initState() {
+    home_controller.getAllCharacters();
+    home_controller.getAllFilms();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +50,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             return CharactersPage();
           }
           if (store.selectPage == Pages.Films) {
-            return FilmsPage();
+            return FilmsPage(
+              films: store.films,
+              title: '',
+            );
           }
           if (store.selectPage == Pages.Favorites) {
             return FavoritesPage();

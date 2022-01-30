@@ -1,12 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars/app/modules/api/api_controller.dart';
-import 'package:star_wars/app/modules/bd/bd_controller.dart';
+import 'package:star_wars/app/modules/bd/db_controller.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
 import 'package:star_wars/app/modules/models/character.dart';
 import 'package:star_wars/app/modules/models/film.dart';
 
 class HomeController {
-  final db = Modular.get<BdController>();
+  final db = Modular.get<DbController>();
   final api = Modular.get<ApiController>();
   final store = Modular.get<HomeStore>();
 
