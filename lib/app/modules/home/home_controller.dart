@@ -39,6 +39,7 @@ class HomeController {
     for (var c in store.characters) {
       if (c.name == character.name) {
         c.favorite = !c.favorite;
+        store.modifyCharacter(character, c);
         db.updateCharacter(c);
       }
     }
@@ -49,6 +50,7 @@ class HomeController {
     for (var f in store.films) {
       if (f.title == film.title) {
         f.favorite = !f.favorite;
+        store.modifyFilm(film, f);
         db.updateFilm(f);
       }
     }

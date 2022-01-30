@@ -8,6 +8,7 @@ import 'package:star_wars/app/modules/home/home_store.dart';
 import 'package:star_wars/app/modules/pages/characters_page.dart';
 import 'package:star_wars/app/modules/pages/favorites_page.dart';
 import 'package:star_wars/app/modules/pages/films_page.dart';
+import 'package:star_wars/app/modules/webview/webview_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -47,7 +48,9 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         }),
         Expanded(child: Observer(builder: (_) {
           if (store.selectPage == Pages.Characters) {
-            return CharactersPage();
+            return CharactersPage(
+              characters: store.characters,
+            );
           }
           if (store.selectPage == Pages.Films) {
             return FilmsPage(
@@ -56,7 +59,12 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             );
           }
           if (store.selectPage == Pages.Favorites) {
-            return FavoritesPage();
+            return FavoritesPage(
+              favorites: store.favorites,
+            );
+          }
+          if (store.selectPage == Pages.WebView) {
+            return WebviewPage();
           }
           return Container();
         }))

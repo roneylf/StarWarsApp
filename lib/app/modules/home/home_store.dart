@@ -8,7 +8,7 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 
 abstract class HomeStoreBase with Store {
   @observable
-  Pages selectPage = Pages.Films;
+  Pages selectPage = Pages.WebView;
 
   @observable
   ObservableList<Film> films = ObservableList<Film>();
@@ -36,9 +36,37 @@ abstract class HomeStoreBase with Store {
   }
 
   @action
+  void modifyCharacter(Character oldCharacter, Character newCharacter) {
+    this.characters.insert(characters.indexOf(oldCharacter), newCharacter);
+    this.characters.remove(oldCharacter);
+  }
+
+  @action
+  void modifyFilm(Film oldFilm, Film newFilm) {
+    this.films.insert(films.indexOf(oldFilm), newFilm);
+    this.films.remove(oldFilm);
+  }
+
+  @action
   void addFilm(Film film) {
     this.films.add(film);
     print(film.id);
+  }
+
+  @computed
+  List get favorites {
+    List list = [];
+    for (var character in this.characters) {
+      if (character.favorite) {
+        list.add(character);
+      }
+    }
+    for (var film in this.films) {
+      if (film.favorite) {
+        list.add(film);
+      }
+    }
+    return list;
   }
 }
 

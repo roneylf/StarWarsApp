@@ -9,6 +9,14 @@ part of 'home_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeStore on HomeStoreBase, Store {
+  Computed<List<dynamic>>? _$favoritesComputed;
+
+  @override
+  List<dynamic> get favorites =>
+      (_$favoritesComputed ??= Computed<List<dynamic>>(() => super.favorites,
+              name: 'HomeStoreBase.favorites'))
+          .value;
+
   final _$selectPageAtom = Atom(name: 'HomeStoreBase.selectPage');
 
   @override
@@ -102,6 +110,28 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
+  void modifyCharacter(Character oldCharacter, Character newCharacter) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.modifyCharacter');
+    try {
+      return super.modifyCharacter(oldCharacter, newCharacter);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void modifyFilm(Film oldFilm, Film newFilm) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.modifyFilm');
+    try {
+      return super.modifyFilm(oldFilm, newFilm);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addFilm(Film film) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.addFilm');
@@ -117,7 +147,8 @@ mixin _$HomeStore on HomeStoreBase, Store {
     return '''
 selectPage: ${selectPage},
 films: ${films},
-characters: ${characters}
+characters: ${characters},
+favorites: ${favorites}
     ''';
   }
 }
