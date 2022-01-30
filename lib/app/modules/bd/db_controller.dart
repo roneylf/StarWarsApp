@@ -25,15 +25,21 @@ class DbController {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, "database.db");
     print(path);
-    var bd = await openDatabase(path, version: 3, onCreate: _onCreate);
+    var bd = await openDatabase(path,
+        version: 4, onCreate: _onCreate, onOpen: _onOpen);
     return bd;
+  }
+
+  void _onOpen(Database db) {
+    db.rawDelete("DELETE FROM characters");
+    db.rawDelete("DELETE FROM films");
   }
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-        "CREATE TABLE films(uuid INTEGER PRIMARY KEY, apiuid INTEGER, title TEXT, favorite INTEGER)");
+        "CREATE TABLE films(uid INTEGER PRIMARY KEY, apiuid INTEGER, title TEXT, favorite INTEGER)");
     await db.execute(
-        "CREATE TABLE characters(uuid INTEGER PRIMARY KEY, apiuid INTEGER, name TEXT, favorite INTEGER)");
+        "CREATE TABLE characters(uid INTEGER PRIMARY KEY, apiuid INTEGER, name TEXT, favorite INTEGER)");
   }
 
   Future<int> insertFilm(Film film) async {

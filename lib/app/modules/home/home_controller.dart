@@ -14,53 +14,53 @@ class HomeController {
     var filmsDb = await db.getFilms();
     store.setFilms(filmsDb);
     var filmsApi = await api.getFilms();
-    filmsApi.forEach((f) async {
-      if (!filmsDb.any((fDb) => fDb.apiId == f.apiId)) {
+    for (var f in filmsApi) {
+      if (!filmsDb.any((fDb) => fDb.title == f.title)) {
         await db.insertFilm(f);
         store.addFilm(f);
       }
-    });
+    }
   }
 
   void getAllCharacters() async {
     var charactersDb = await db.getCharacters();
     store.setCharacters(charactersDb);
     var charactersApi = await api.getCharacters();
-    charactersApi.forEach((c) async {
-      if (!charactersDb.any((cDb) => cDb.apiId == c.apiId)) {
+    for (var c in charactersApi) {
+      if (!charactersDb.any((cDb) => cDb.name == c.name)) {
         await db.insertCharacter(c);
         store.addCharacter(c);
       }
-    });
+    }
   }
 
   void setfavoriteCharacters(Character character) async {
     var charactersDb = await db.getCharacters();
-    store.characters.forEach((c) {
-      if (c.apiId == character.apiId) {
+    for (var c in store.characters) {
+      if (c.name == character.name) {
         c.favorite = !c.favorite;
       }
-    });
-    charactersDb.forEach((cDb) {
-      if (cDb.apiId == character.apiId) {
+    }
+    for (var cDb in charactersDb) {
+      if (cDb.name == character.name) {
         cDb.favorite = character.favorite;
         db.updateCharacter(cDb);
       }
-    });
+    }
   }
 
   void setFavoriteFilms(Film film) async {
     var filmsDb = await db.getFilms();
-    store.films.forEach((f) {
-      if (f.apiId == film.apiId) {
+    for (var f in store.films) {
+      if (f.title == film.title) {
         f.favorite = !f.favorite;
       }
-    });
-    filmsDb.forEach((fDb) {
-      if (fDb.apiId == film.apiId) {
+    }
+    for (var fDb in filmsDb) {
+      if (fDb.title == film.title) {
         fDb.favorite = film.favorite;
         db.updateFilm(fDb);
       }
-    });
+    }
   }
 }

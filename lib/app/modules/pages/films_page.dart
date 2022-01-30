@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:star_wars/app/modules/models/film.dart';
 
@@ -18,14 +19,16 @@ class FilmsPage extends StatefulWidget {
 class FilmsPageState extends State<FilmsPage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemBuilder: (BuildContext context, int cont) {
-          return ListTile(
-            title: Text(widget.films[cont].title),
-            subtitle:
-                Text(widget.films[cont].favorite ? 'Favorito' : 'Não Favorito'),
-          );
-        },
-        itemCount: widget.films.length);
+    return Observer(builder: (_) {
+      return ListView.builder(
+          itemBuilder: (BuildContext context, int cont) {
+            return ListTile(
+              title: Text(widget.films[cont].title),
+              subtitle: Text(
+                  widget.films[cont].favorite ? 'Favorito' : 'Não Favorito'),
+            );
+          },
+          itemCount: widget.films.length);
+    });
   }
 }

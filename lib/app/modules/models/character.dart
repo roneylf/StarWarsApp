@@ -4,12 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 class Character {
   int? uid;
-  int apiId;
+
   String name;
   bool favorite = false;
   Character({
     this.uid,
-    required this.apiId,
     required this.name,
     required this.favorite,
   });
@@ -22,7 +21,6 @@ class Character {
   }) {
     return Character(
       uid: uid ?? this.uid,
-      apiId: apiId ?? this.apiId,
       name: name ?? this.name,
       favorite: favorite ?? this.favorite,
     );
@@ -30,8 +28,6 @@ class Character {
 
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
-      'apiId': apiId,
       'name': name,
       'favorite': favorite ? 1 : 0,
     };
@@ -40,7 +36,6 @@ class Character {
   factory Character.fromMap(Map<String, dynamic> map) {
     return Character(
       uid: map['uid'] != null ? map['uid'] as int : null,
-      apiId: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       //se não for nulo, verifca o tipo e converte para bool
       //necessario fazer isso pois o sqflite não aceita bool
@@ -57,7 +52,7 @@ class Character {
 
   @override
   String toString() {
-    return 'Character(uid: $uid, apiId: $apiId, name: $name, favorite: $favorite)';
+    return 'Character(uid: $uid, name: $name, favorite: $favorite)';
   }
 
   @override
@@ -66,13 +61,12 @@ class Character {
 
     return other is Character &&
         other.uid == uid &&
-        other.apiId == apiId &&
         other.name == name &&
         other.favorite == favorite;
   }
 
   @override
   int get hashCode {
-    return uid.hashCode ^ apiId.hashCode ^ name.hashCode ^ favorite.hashCode;
+    return uid.hashCode ^ name.hashCode ^ favorite.hashCode;
   }
 }
