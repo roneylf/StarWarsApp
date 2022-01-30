@@ -5,7 +5,10 @@ import 'package:modular_test/modular_test.dart';
 main() {
   group('FilmsPage', () {
     testWidgets('has a title and message', (WidgetTester tester) async {
-      await tester.pumpWidget((FilmsPage(title: 'T')));
+      await tester.pumpWidget((FilmsPage(
+        title: 'T',
+        films: [],
+      )));
       final titleFinder = find.text('T');
       expect(titleFinder, findsOneWidget);
     });

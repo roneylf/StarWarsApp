@@ -33,16 +33,20 @@ class Character {
       'uid': uid,
       'apiId': apiId,
       'name': name,
-      'favorite': favorite,
+      'favorite': favorite ? 1 : 0,
     };
   }
 
   factory Character.fromMap(Map<String, dynamic> map) {
     return Character(
-      uid: map['uid'] as int,
+      uid: map['uid'] != null ? map['uid'] as int : null,
       apiId: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
-      favorite: map['favorite'] ?? false,
+      //se não for nulo, verifca o tipo e converte para bool
+      //necessario fazer isso pois o sqflite não aceita bool
+      favorite: map['favorite'] != null
+          ? (map['favorite'] is bool ? map['favorite'] : map['favorite'] == 1)
+          : false,
     );
   }
 

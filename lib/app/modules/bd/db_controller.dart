@@ -25,15 +25,15 @@ class DbController {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, "database.db");
     print(path);
-    var bd = await openDatabase(path, version: 1, onCreate: _onCreate);
+    var bd = await openDatabase(path, version: 3, onCreate: _onCreate);
     return bd;
   }
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-        "CREATE TABLE films(uid INTEGER PRIMARY KEY, apiId INTEGER, title TEXT, favorite BOOLEAN)");
+        "CREATE TABLE films(uuid INTEGER PRIMARY KEY, apiuid INTEGER, title TEXT, favorite INTEGER)");
     await db.execute(
-        "CREATE TABLE characters(uid INTEGER PRIMARY KEY, apiId INTEGER, name TEXT, favorite INTEGER)");
+        "CREATE TABLE characters(uuid INTEGER PRIMARY KEY, apiuid INTEGER, name TEXT, favorite INTEGER)");
   }
 
   Future<int> insertFilm(Film film) async {
