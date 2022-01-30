@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars/app/modules/components/parallelogram_form.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
+import 'package:fluttermoji/fluttermoji.dart';
 
 class TopPanel extends StatelessWidget {
   const TopPanel({Key? key, required this.store}) : super(key: key);
@@ -36,12 +37,13 @@ class TopPanel extends StatelessWidget {
                     )),
                   ),
                 )),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                radius: 30,
-                child: Icon(Icons.person),
-              ),
+              child: GestureDetector(
+                  onTap: () {
+                    store.selectPage = Pages.Avatar;
+                  },
+                  child: FluttermojiCircleAvatar()),
             )
           ],
         ),

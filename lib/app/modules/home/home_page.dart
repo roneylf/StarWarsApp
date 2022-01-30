@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:star_wars/app/modules/avatar/avatar_page.dart';
 import 'package:star_wars/app/modules/components/navbar.dart';
 import 'package:star_wars/app/modules/components/topPanel.dart';
 import 'package:star_wars/app/modules/home/home_controller.dart';
@@ -65,6 +66,9 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           }
           if (store.selectPage == Pages.WebView) {
             return WebviewPage();
+          }
+          if (store.selectPage == Pages.Avatar) {
+            return AvatarPage();
           }
           return Container();
         }))

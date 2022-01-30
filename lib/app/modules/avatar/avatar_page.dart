@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttermoji/fluttermoji.dart';
 
 class AvatarPage extends StatefulWidget {
   final String title;
@@ -6,16 +7,16 @@ class AvatarPage extends StatefulWidget {
   @override
   AvatarPageState createState() => AvatarPageState();
 }
+
 class AvatarPageState extends State<AvatarPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[],
-      ),
+    return Flex(
+      direction: Axis.vertical,
+      children: [
+        FluttermojiCircleAvatar(),
+        FluttermojiCustomizer(),
+      ],
     );
   }
 }
