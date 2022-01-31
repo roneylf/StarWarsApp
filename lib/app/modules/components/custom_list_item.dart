@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:star_wars/app/modules/models/film.dart';
 
-class CUstomListItem extends StatelessWidget {
-  const CUstomListItem({
+class CustomListItem extends StatelessWidget {
+  const CustomListItem({
     Key? key,
     required this.height,
     required this.item,
@@ -19,6 +19,7 @@ class CUstomListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color _getBorderColor() {
+      //return Colors.transparent;
       if (showBorder) {
         if (item.favorite) {
           if (item is Film) {
@@ -40,23 +41,34 @@ class CUstomListItem extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white10,
+          color: Color.fromARGB(255, 51, 51, 51),
           boxShadow: [
             BoxShadow(
               color: _getBorderColor(),
-              blurRadius: 5,
-              offset: Offset(0, 5),
+              blurRadius: 3,
+              offset: const Offset(-1, 2),
             ),
           ],
         ),
-        child: Row(
+        child: Flex(
+          mainAxisSize: MainAxisSize.max,
+          direction: Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(item is Film ? item.title : item.name),
-            IconButton(
-              onPressed: onTap,
-              color: item.favorite ? Colors.yellow : Colors.white10,
-              icon: Icon(
-                Icons.star_border_rounded,
+            Flexible(
+                fit: FlexFit.tight,
+                flex: 2,
+                child:
+                    Center(child: Text(item is Film ? item.title : item.name))),
+            Flexible(
+              fit: FlexFit.tight,
+              child: IconButton(
+                iconSize: height * 0.75,
+                onPressed: onTap,
+                color: item.favorite ? Colors.yellow : Colors.white10,
+                icon: const Icon(
+                  Icons.star_border_rounded,
+                ),
               ),
             )
           ],

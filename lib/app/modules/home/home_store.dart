@@ -8,7 +8,7 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 
 abstract class HomeStoreBase with Store {
   @observable
-  Pages selectPage = Pages.WebView;
+  Pages selectPage = Pages.Films;
 
   @observable
   ObservableList<Film> films = ObservableList<Film>();
