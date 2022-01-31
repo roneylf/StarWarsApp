@@ -237,6 +237,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.2"
+  flutter_launcher_icons:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: b9b7b37e2032f8d45d5bf94082d83cc2b86ec0a9
+      url: "https://github.com/roneylf/flutter_launcher_icons.git"
+    source: git
+    version: "0.9.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -324,13 +333,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.13.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -562,13 +564,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  rive:
-    dependency: "direct main"
-    description:
-      name: rive
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.1"
   shared_preferences:
     dependency: transitive
     description:
