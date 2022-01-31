@@ -32,6 +32,23 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  final _$posAnimatedPosictionedAtom =
+      Atom(name: 'HomeStoreBase.posAnimatedPosictioned');
+
+  @override
+  int get posAnimatedPosictioned {
+    _$posAnimatedPosictionedAtom.reportRead();
+    return super.posAnimatedPosictioned;
+  }
+
+  @override
+  set posAnimatedPosictioned(int value) {
+    _$posAnimatedPosictionedAtom
+        .reportWrite(value, super.posAnimatedPosictioned, () {
+      super.posAnimatedPosictioned = value;
+    });
+  }
+
   final _$filmsAtom = Atom(name: 'HomeStoreBase.films');
 
   @override
@@ -62,19 +79,16 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  final _$HomeStoreBaseActionController =
-      ActionController(name: 'HomeStoreBase');
+  final _$setSelectPageAsyncAction = AsyncAction('HomeStoreBase.setSelectPage');
 
   @override
-  void setSelectPage(Pages page) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setSelectPage');
-    try {
-      return super.setSelectPage(page);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
+  void setSelectPage(Pages page) async {
+    return _$setSelectPageAsyncAction
+        .run(() async => super.setSelectPage(page));
   }
+
+  final _$HomeStoreBaseActionController =
+      ActionController(name: 'HomeStoreBase');
 
   @override
   void setFilms(List<Film> films) {
@@ -146,6 +160,7 @@ mixin _$HomeStore on HomeStoreBase, Store {
   String toString() {
     return '''
 selectPage: ${selectPage},
+posAnimatedPosictioned: ${posAnimatedPosictioned},
 films: ${films},
 characters: ${characters},
 favorites: ${favorites}

@@ -11,13 +11,26 @@ abstract class HomeStoreBase with Store {
   Pages selectPage = Pages.Films;
 
   @observable
+  int posAnimatedPosictioned = 0;
+  //deve ser um valor separado de selectPage pois deve ser
+  //setado antes de selectPage para que a tela inteira
+  //não seja reconstruida antes do termino da animação
+  //pois um um observer esta em HomePage reconstruindo NavBar
+  //com base em selectPage
+
+  @observable
   ObservableList<Film> films = ObservableList<Film>();
 
   @observable
   ObservableList<Character> characters = ObservableList<Character>();
 
   @action
-  void setSelectPage(Pages page) => selectPage = page;
+  void setSelectPage(Pages page) async {
+    posAnimatedPosictioned = Pages.values.indexOf(page);
+    Future.delayed(Duration(milliseconds: 500), () {
+      selectPage = page;
+    });
+  }
 
   @action
   void setFilms(List<Film> films) {
