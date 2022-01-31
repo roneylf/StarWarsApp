@@ -43,8 +43,11 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
               store.selectPage == Pages.Avatar) {
             return Container();
           }
-          return NavBar(
-            store: store,
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            child: NavBar(
+              store: store,
+            ),
           );
         }),
         Expanded(child: Observer(builder: (_) {

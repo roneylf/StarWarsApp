@@ -27,12 +27,7 @@ class CharactersPageState extends State<CharactersPage> {
           itemBuilder: (BuildContext context, int index) {
             return Observer(builder: (_) {
               return CustomListItem(
-                  height: 80,
-                  item: widget.characters[index],
-                  onTap: () {
-                    widget.controller
-                        .setfavoriteCharacters(widget.characters[index]);
-                  });
+                  height: 80, item: widget.characters[index], onTap: () {});
             });
           }),
     );
