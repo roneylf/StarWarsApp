@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:star_wars/app/modules/components/custom_list_item.dart';
 import 'package:star_wars/app/modules/home/home_controller.dart';
 import 'package:star_wars/app/modules/models/character.dart';
 
@@ -25,18 +26,13 @@ class CharactersPageState extends State<CharactersPage> {
           itemCount: widget.characters.length,
           itemBuilder: (BuildContext context, int index) {
             return Observer(builder: (_) {
-              return GestureDetector(
-                onTap: () {
-                  widget.controller
-                      .setfavoriteCharacters(widget.characters[index]);
-                },
-                child: ListTile(
-                  title: Text(widget.characters[index].name),
-                  subtitle: Text(widget.characters[index].favorite
-                      ? 'Favorite'
-                      : 'Not Favorite'),
-                ),
-              );
+              return CustomListItem(
+                  height: 80,
+                  item: widget.characters[index],
+                  onTap: () {
+                    widget.controller
+                        .setfavoriteCharacters(widget.characters[index]);
+                  });
             });
           }),
     );

@@ -27,7 +27,7 @@ class NavBar extends StatelessWidget {
       ),
       Expanded(
         child: MaterialButton(
-          child: Text('About'),
+          child: Text('Favoritos'),
           onPressed: () {
             store.selectPage = Pages.Favorites;
           },
