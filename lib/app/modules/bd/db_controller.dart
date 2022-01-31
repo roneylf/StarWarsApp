@@ -25,33 +25,15 @@ class DbController {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, "database.db");
     print(path);
-    var bd = await openDatabase(path,
-        version: 9,
-        onCreate: _onCreate,
-        onOpen: _onOpen,
-        onUpgrade: _onUpgrade);
+    var bd = await openDatabase(
+      path,
+      version: 9,
+      onCreate: _onCreate,
+    );
     return bd;
   }
 
-  void _onOpen(Database db) {
-    return;
-    db.rawDelete("DELETE FROM characters");
-    db.rawDelete("DELETE FROM films");
-  }
-
   void _onCreate(Database db, int newVersion) async {
-    await db.execute(
-        "CREATE TABLE films(id INTEGER PRIMARY KEY,  title TEXT, favorite INTEGER)");
-    await db.execute(
-        "CREATE TABLE characters(id INTEGER PRIMARY KEY,  name TEXT, favorite INTEGER)");
-    await db
-        .execute("CREATE TABLE avatar(id INTEGER PRIMARY KEY,  infos String)");
-  }
-
-  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    db.execute("DROP TABLE IF EXISTS films");
-    db.execute("DROP TABLE IF EXISTS characters");
-    db.execute("DROP TABLE IF EXISTS avatar");
     await db.execute(
         "CREATE TABLE films(id INTEGER PRIMARY KEY,  title TEXT, favorite INTEGER)");
     await db.execute(

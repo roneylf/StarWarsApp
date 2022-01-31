@@ -25,11 +25,16 @@ abstract class HomeStoreBase with Store {
   ObservableList<Character> characters = ObservableList<Character>();
 
   @action
-  void setSelectPage(Pages page) async {
+  void setSelectPage({required Pages page, bool finish = true}) {
     posAnimatedPosictioned = Pages.values.indexOf(page);
-    Future.delayed(Duration(milliseconds: 500), () {
+    if (finish) {
       selectPage = page;
-    });
+    }
+  }
+
+  @action
+  finishSelectPage() {
+    selectPage = Pages.values[posAnimatedPosictioned];
   }
 
   @action

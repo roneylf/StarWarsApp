@@ -29,32 +29,36 @@ class _NavBarState extends State<NavBar> {
                   color: Colors.green.withOpacity(1),
                   borderRadius: BorderRadius.circular(10)),
             ),
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.linear,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.bounceOut,
             top: 0,
             left: _getPosition(size, widget.store.posAnimatedPosictioned),
             height: size.maxHeight,
             width: size.maxWidth / 3,
+            onEnd: () {
+              widget.store.finishSelectPage();
+            },
           );
         }),
         Row(children: [
           NavBarItem(
               size: size,
               onPressed: () {
-                widget.store.setSelectPage(Pages.Films);
+                widget.store.setSelectPage(page: Pages.Films, finish: false);
               },
               text: "Filmes"),
           NavBarItem(
               size: size,
               onPressed: () {
-                widget.store.setSelectPage(Pages.Characters);
+                widget.store
+                    .setSelectPage(page: Pages.Characters, finish: false);
               },
               text: "Personagens"),
           NavBarItem(
             size: size,
             text: 'Favoritos',
             onPressed: () {
-              widget.store.setSelectPage(Pages.Favorites);
+              widget.store.setSelectPage(page: Pages.Favorites, finish: false);
             },
           ),
         ]),
@@ -80,7 +84,7 @@ class NavBarItem extends StatelessWidget {
     return MaterialButton(
       minWidth: size.maxWidth / 3,
       height: size.maxHeight,
-      child: const Text('Favoritos'),
+      child: Text(text),
       onPressed: onPressed,
     );
   }

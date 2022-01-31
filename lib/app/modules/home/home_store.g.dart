@@ -79,16 +79,30 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  final _$setSelectPageAsyncAction = AsyncAction('HomeStoreBase.setSelectPage');
-
-  @override
-  void setSelectPage(Pages page) async {
-    return _$setSelectPageAsyncAction
-        .run(() async => super.setSelectPage(page));
-  }
-
   final _$HomeStoreBaseActionController =
       ActionController(name: 'HomeStoreBase');
+
+  @override
+  void setSelectPage({required Pages page, bool finish = true}) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setSelectPage');
+    try {
+      return super.setSelectPage(page: page, finish: finish);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic finishSelectPage() {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.finishSelectPage');
+    try {
+      return super.finishSelectPage();
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setFilms(List<Film> films) {

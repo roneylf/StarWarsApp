@@ -48,9 +48,9 @@ class _TopPanelState extends State<TopPanel> {
                           : const Color.fromARGB(36, 255, 255, 255),
                       onPressed: () {
                         if (widget.store.selectPage == Pages.WebView) {
-                          widget.store.setSelectPage(Pages.Films);
+                          widget.store.setSelectPage(page: Pages.Films);
                         } else {
-                          widget.store.setSelectPage(Pages.WebView);
+                          widget.store.setSelectPage(page: Pages.WebView);
                         }
                       },
                       child: const Center(
@@ -65,9 +65,9 @@ class _TopPanelState extends State<TopPanel> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(onTap: () {
                 if (widget.store.selectPage == Pages.Avatar) {
-                  widget.store.setSelectPage(Pages.Films);
+                  widget.store.setSelectPage(page: Pages.Films);
                 } else {
-                  widget.store.setSelectPage(Pages.Avatar);
+                  widget.store.setSelectPage(page: Pages.Avatar);
                 }
               }, child: Observer(builder: (_) {
                 if (_avatarController.avatarStore.loading) {
