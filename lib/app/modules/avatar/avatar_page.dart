@@ -19,12 +19,18 @@ class AvatarPageState extends ModularState<AvatarPage, AvatarController> {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.vertical,
-      children: [
-        FluttermojiCircleAvatar(),
-        FluttermojiCustomizer(),
-      ],
-    );
+    return LayoutBuilder(builder: (context, size) {
+      return Flex(
+        direction: Axis.vertical,
+        children: [
+          FluttermojiCircleAvatar(
+            radius: (size.maxHeight * 0.3) / 2,
+          ),
+          FluttermojiCustomizer(
+            scaffoldHeight: size.maxHeight * 0.6,
+          ),
+        ],
+      );
+    });
   }
 }

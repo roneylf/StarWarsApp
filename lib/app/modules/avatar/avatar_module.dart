@@ -6,7 +6,4 @@ class AvatarModule extends Module {
   final List<Bind> binds = [
     Bind.lazySingleton((i) => AvatarStore()),
   ];
-
-  @override
-  final List<ModularRoute> routes = [];
 }
