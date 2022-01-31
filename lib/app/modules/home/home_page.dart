@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars/app/modules/avatar/avatar_page.dart';
 import 'package:star_wars/app/modules/components/navbar.dart';
-import 'package:star_wars/app/modules/components/topPanel.dart';
+import 'package:star_wars/app/modules/components/top_panel.dart';
 import 'package:star_wars/app/modules/home/home_controller.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
 import 'package:star_wars/app/modules/pages/characters_page.dart';

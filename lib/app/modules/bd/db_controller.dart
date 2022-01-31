@@ -26,7 +26,10 @@ class DbController {
     String path = join(databasesPath, "database.db");
     print(path);
     var bd = await openDatabase(path,
-        version: 7, onCreate: _onCreate, onOpen: _onOpen);
+        version: 9,
+        onCreate: _onCreate,
+        onOpen: _onOpen,
+        onUpgrade: _onUpgrade);
     return bd;
   }
 
@@ -41,6 +44,20 @@ class DbController {
         "CREATE TABLE films(id INTEGER PRIMARY KEY,  title TEXT, favorite INTEGER)");
     await db.execute(
         "CREATE TABLE characters(id INTEGER PRIMARY KEY,  name TEXT, favorite INTEGER)");
+    await db
+        .execute("CREATE TABLE avatar(id INTEGER PRIMARY KEY,  infos String)");
+  }
+
+  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    db.execute("DROP TABLE IF EXISTS films");
+    db.execute("DROP TABLE IF EXISTS characters");
+    db.execute("DROP TABLE IF EXISTS avatar");
+    await db.execute(
+        "CREATE TABLE films(id INTEGER PRIMARY KEY,  title TEXT, favorite INTEGER)");
+    await db.execute(
+        "CREATE TABLE characters(id INTEGER PRIMARY KEY,  name TEXT, favorite INTEGER)");
+    await db
+        .execute("CREATE TABLE avatar(id INTEGER PRIMARY KEY,  infos String)");
   }
 
   Future<int> insertFilm(Film film) async {
@@ -111,5 +128,22 @@ class DbController {
     var result =
         await bd.delete("characters", where: "id = ?", whereArgs: [id]);
     return result;
+  }
+
+  Future<void> saveAvatar(String avatar) async {
+    var bd = await database;
+    var result = await bd.rawQuery("SELECT * FROM avatar");
+    if (result.isEmpty) {
+      await bd.rawInsert("INSERT INTO avatar (infos) VALUES ('$avatar')");
+    } else {
+      await bd.rawUpdate("UPDATE avatar SET infos = '$avatar'");
+    }
+    return;
+  }
+
+  Future<Object?> getAvatar() async {
+    var bd = await database;
+    var result = await bd.rawQuery("SELECT * FROM avatar");
+    return result.isNotEmpty ? result.first["infos"] : null;
   }
 }

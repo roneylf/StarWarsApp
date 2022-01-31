@@ -5,7 +5,10 @@ import 'package:modular_test/modular_test.dart';
 main() {
   group('FavoritesPage', () {
     testWidgets('has a title and message', (WidgetTester tester) async {
-      await tester.pumpWidget((FavoritesPage(title: 'T')));
+      await tester.pumpWidget((const FavoritesPage(
+        title: 'T',
+        favorites: [],
+      )));
       final titleFinder = find.text('T');
       expect(titleFinder, findsOneWidget);
     });
