@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this, constant_identifier_names
+
 import 'package:mobx/mobx.dart';
 import 'package:star_wars/app/modules/models/character.dart';
 import 'package:star_wars/app/modules/models/film.dart';
@@ -39,8 +41,6 @@ abstract class HomeStoreBase with Store {
 
   @action
   void setFilms(List<Film> films) {
-    print("filmes sendo adionado no BD");
-    print(films);
     this.films.addAll(films);
   }
 
@@ -67,8 +67,7 @@ abstract class HomeStoreBase with Store {
 
   @action
   void addFilm(Film film) {
-    this.films.add(film);
-    print(film.id);
+    films.add(film);
   }
 
   @computed

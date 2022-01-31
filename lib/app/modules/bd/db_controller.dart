@@ -24,12 +24,9 @@ class DbController {
   initBd() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, "database.db");
-    print(path);
-    var bd = await openDatabase(
-      path,
-      version: 9,
-      onCreate: _onCreate,
-    );
+
+    var bd = await openDatabase(path,
+        version: 9, onCreate: _onCreate, onOpen: _onOpen);
     return bd;
   }
 
@@ -40,6 +37,12 @@ class DbController {
         "CREATE TABLE characters(id INTEGER PRIMARY KEY,  name TEXT, favorite INTEGER)");
     await db
         .execute("CREATE TABLE avatar(id INTEGER PRIMARY KEY,  infos String)");
+  }
+
+  void _onOpen(Database db) {
+    db.rawDelete("DELETE FROM characters");
+    db.rawDelete("DELETE FROM films");
+    db.rawDelete("DELETE FROM avatar");
   }
 
   Future<int> insertFilm(Film film) async {
@@ -57,7 +60,6 @@ class DbController {
   Future<List<Film>> getFilms() async {
     var bd = await database;
     var result = await bd.query("films");
-    print(result);
     List<Film> films =
         result.isNotEmpty ? result.map((c) => Film.fromMap(c)).toList() : [];
     return films;
@@ -85,7 +87,6 @@ class DbController {
   }
 
   Future<int> updateFilm(Film film) async {
-    print("Filme para atualizar: ${film.id}");
     var bd = await database;
     var result = await bd
         .update("films", film.toMap(), where: "id = ?", whereArgs: [film.id]);

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:star_wars/app//modules/avatar/avatar_store.dart';
- 
+
 void main() {
   late AvatarStore store;
 
@@ -9,8 +9,8 @@ void main() {
   });
 
   test('increment count', () async {
-    expect(store.value, equals(0));
-    store.increment();
-    expect(store.value, equals(1));
+    expect(store.loading, equals(false));
+    store.loading = true;
+    expect(store.loading, equals(true));
   });
 }

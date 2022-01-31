@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,6 +26,11 @@ class FilmsPageState extends State<FilmsPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
+      if (widget.films.isEmpty) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
       return ListView.builder(
           itemBuilder: (BuildContext context, int cont) {
             return CustomListItem(

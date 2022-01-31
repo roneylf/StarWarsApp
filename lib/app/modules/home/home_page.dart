@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,50 +34,56 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Flex(
-      direction: Axis.vertical,
-      children: [
-        TopPanel(
-          store: store,
+        appBar: AppBar(
+          title: const Text("Star Wars"),
         ),
-        Observer(builder: (_) {
-          if (store.selectPage == Pages.WebView ||
-              store.selectPage == Pages.Avatar) {
-            return Container();
-          }
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.07,
-            child: NavBar(
+        body: Flex(
+          direction: Axis.vertical,
+          children: [
+            TopPanel(
               store: store,
             ),
-          );
-        }),
-        Expanded(child: Observer(builder: (_) {
-          if (store.selectPage == Pages.Characters) {
-            return CharactersPage(
-              characters: store.characters,
-            );
-          }
-          if (store.selectPage == Pages.Films) {
-            return FilmsPage(
-              films: store.films,
-              title: '',
-            );
-          }
-          if (store.selectPage == Pages.Favorites) {
-            return FavoritesPage(
-              favorites: store.favorites,
-            );
-          }
-          if (store.selectPage == Pages.WebView) {
-            return WebviewPage();
-          }
-          if (store.selectPage == Pages.Avatar) {
-            return AvatarPage();
-          }
-          return Container();
-        }))
-      ],
-    ));
+            Observer(builder: (_) {
+              if (store.selectPage == Pages.WebView ||
+                  store.selectPage == Pages.Avatar) {
+                return Container();
+              }
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  child: NavBar(
+                    store: store,
+                  ),
+                ),
+              );
+            }),
+            Expanded(child: Observer(builder: (_) {
+              if (store.selectPage == Pages.Characters) {
+                return CharactersPage(
+                  characters: store.characters,
+                );
+              }
+              if (store.selectPage == Pages.Films) {
+                return FilmsPage(
+                  films: store.films,
+                  title: '',
+                );
+              }
+              if (store.selectPage == Pages.Favorites) {
+                return FavoritesPage(
+                  favorites: store.favorites,
+                );
+              }
+              if (store.selectPage == Pages.WebView) {
+                return const WebviewPage();
+              }
+              if (store.selectPage == Pages.Avatar) {
+                return const AvatarPage();
+              }
+              return Container();
+            }))
+          ],
+        ));
   }
 }

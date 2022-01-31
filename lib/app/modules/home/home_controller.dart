@@ -35,7 +35,6 @@ class HomeController {
   }
 
   void setfavoriteCharacters(Character character) async {
-    var charactersDb = await db.getCharacters();
     for (var c in store.characters) {
       if (c.name == character.name) {
         c.favorite = !c.favorite;
@@ -46,7 +45,6 @@ class HomeController {
   }
 
   void setFavoriteFilms(Film film) async {
-    var filmsDb = await db.getFilms();
     for (var f in store.films) {
       if (f.title == film.title) {
         f.favorite = !f.favorite;

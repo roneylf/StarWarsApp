@@ -3,6 +3,7 @@ import 'package:star_wars/app/modules/models/character.dart';
 import 'package:star_wars/app/modules/models/film.dart';
 
 class ApiController {
+  // ignore: non_constant_identifier_names
   final String BASE_URL = "https://swapi.dev/api/";
 
   Dio dio = Dio();

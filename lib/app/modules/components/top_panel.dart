@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -71,7 +73,7 @@ class _TopPanelState extends State<TopPanel> {
                 }
               }, child: Observer(builder: (_) {
                 if (_avatarController.avatarStore.loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }

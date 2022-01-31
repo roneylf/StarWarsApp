@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,14 +24,24 @@ class CharactersPageState extends State<CharactersPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ListView.builder(
-          itemCount: widget.characters.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Observer(builder: (_) {
-              return CustomListItem(
-                  height: 80, item: widget.characters[index], onTap: () {});
+      child: Observer(builder: (_) {
+        return ListView.builder(
+            itemCount: widget.characters.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Observer(builder: (_) {
+                if (widget.characters.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return CustomListItem(
+                    height: 80,
+                    item: widget.characters[index],
+                    onTap: () {
+                      widget.controller
+                          .setfavoriteCharacters(widget.characters[index]);
+                    });
+              });
             });
-          }),
+      }),
     );
   }
 }
