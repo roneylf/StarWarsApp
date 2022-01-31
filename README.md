@@ -13,8 +13,8 @@ toda a vez que o app é inicializado é feito um request na API e os dados são 
 caso haja um novo filme ou personagem.
 
 Os dados do Avatar são armazenados na tabela conforme o requisito, no InitState do AvatarPage 
-é chamado uma controller que inicia um listener que sempre que o usuário salva o avatar olistener recebe 
-o string e armazena no banco.
+é chamado uma controller que inicia um listener que sempre que o usuário salva o avatar o listener recebe 
+a string (Avarar Decode) e armazena no banco.
 
 ### Como executar
 ```
