@@ -25,9 +25,9 @@ class DbController {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, "database.db");
 
-    var bd = await openDatabase(path,
+    var db = await openDatabase(path,
         version: 9, onCreate: _onCreate, onOpen: _onOpen);
-    return bd;
+    return db;
   }
 
   void _onCreate(Database db, int newVersion) async {
@@ -40,34 +40,36 @@ class DbController {
   }
 
   void _onOpen(Database db) {
+    //desabilitado para ser usado somente em produção
+    return;
     db.rawDelete("DELETE FROM characters");
     db.rawDelete("DELETE FROM films");
     db.rawDelete("DELETE FROM avatar");
   }
 
   Future<int> insertFilm(Film film) async {
-    var bd = await database;
-    var result = await bd.insert("films", film.toMap());
+    var db = await database;
+    var result = await db.insert("films", film.toMap());
     return result;
   }
 
   Future<int> insertCharacter(Character character) async {
-    var bd = await database;
-    var result = await bd.insert("characters", character.toMap());
+    var db = await database;
+    var result = await db.insert("characters", character.toMap());
     return result;
   }
 
   Future<List<Film>> getFilms() async {
-    var bd = await database;
-    var result = await bd.query("films");
+    var db = await database;
+    var result = await db.query("films");
     List<Film> films =
         result.isNotEmpty ? result.map((c) => Film.fromMap(c)).toList() : [];
     return films;
   }
 
   Future<List<Character>> getCharacters() async {
-    var bd = await database;
-    var result = await bd.query("characters");
+    var db = await database;
+    var result = await db.query("characters");
     List<Character> characters = result.isNotEmpty
         ? result.map((c) => Character.fromMap(c)).toList()
         : [];
@@ -75,58 +77,58 @@ class DbController {
   }
 
   Future<Film?> getFilm(int id) async {
-    var bd = await database;
-    var result = await bd.query("films", where: "id = ?", whereArgs: [id]);
+    var db = await database;
+    var result = await db.query("films", where: "id = ?", whereArgs: [id]);
     return result.isNotEmpty ? Film.fromMap(result.first) : null;
   }
 
   Future<Character?> getCharacter(int id) async {
-    var bd = await database;
-    var result = await bd.query("characters", where: "id = ?", whereArgs: [id]);
+    var db = await database;
+    var result = await db.query("characters", where: "id = ?", whereArgs: [id]);
     return result.isNotEmpty ? Character.fromMap(result.first) : null;
   }
 
   Future<int> updateFilm(Film film) async {
-    var bd = await database;
-    var result = await bd
+    var db = await database;
+    var result = await db
         .update("films", film.toMap(), where: "id = ?", whereArgs: [film.id]);
     return result;
   }
 
   Future<int> updateCharacter(Character character) async {
-    var bd = await database;
-    var result = await bd.update("characters", character.toMap(),
+    var db = await database;
+    var result = await db.update("characters", character.toMap(),
         where: "id = ?", whereArgs: [character.id]);
     return result;
   }
 
   Future<int> deleteFilm(int id) async {
-    var bd = await database;
-    var result = await bd.delete("films", where: "id = ?", whereArgs: [id]);
+    var db = await database;
+    var result = await db.delete("films", where: "id = ?", whereArgs: [id]);
     return result;
   }
 
   Future<int> deleteCharacter(int id) async {
-    var bd = await database;
+    var db = await database;
     var result =
-        await bd.delete("characters", where: "id = ?", whereArgs: [id]);
+        await db.delete("characters", where: "id = ?", whereArgs: [id]);
     return result;
   }
 
   Future<void> saveAvatar(String avatar) async {
-    var bd = await database;
-    var result = await bd.rawQuery("SELECT * FROM avatar");
+    var db = await database;
+    var result = await db.rawQuery("SELECT * FROM avatar");
     if (result.isEmpty) {
-      await bd.rawInsert("INSERT INTO avatar (infos) VALUES ('$avatar')");
+      await db.rawInsert("INSERT INTO avatar (infos) VALUES ('$avatar')");
     } else {
-      await bd.rawUpdate("UPDATE avatar SET infos = '$avatar'");
+      await db.rawUpdate("UPDATE avatar SET infos = '$avatar'");
     }
     return;
   }
 
   Future<Object?> getAvatar() async {
-    var bd = await database;
-    var result = await bd.rawQuery("SELECT * FROM avatar");
+    var db = await database;
+    var result = await db.rawQuery("SELECT * FROM avatar");
     return result.isNotEmpty ? result.first["infos"] : null;
   }
 }

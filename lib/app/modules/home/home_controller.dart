@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars/app/modules/api/api_controller.dart';
-import 'package:star_wars/app/modules/bd/db_controller.dart';
+import 'package:star_wars/app/modules/db/db_controller.dart';
 import 'package:star_wars/app/modules/home/home_store.dart';
 import 'package:star_wars/app/modules/models/character.dart';
 import 'package:star_wars/app/modules/models/film.dart';

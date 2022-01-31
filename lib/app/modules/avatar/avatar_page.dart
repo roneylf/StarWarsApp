@@ -27,6 +27,7 @@ class AvatarPageState extends ModularState<AvatarPage, AvatarController> {
             radius: (size.maxHeight * 0.3) / 2,
           ),
           FluttermojiCustomizer(
+            outerTitleText: "Personalize",
             scaffoldHeight: size.maxHeight * 0.6,
           ),
         ],
