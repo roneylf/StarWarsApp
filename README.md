@@ -28,14 +28,9 @@ $ flutter run
 ou baixe o apk:
   https://github.com/roneylf/StarWarsApp/releases/download/v1.0.0/StarWarsApp.apk
   
-O código é compativel com Android e Ios apenas pois o package Sqflite não suporta windows ou web
+O código é compativel com Android e Ios apenas pois o package Sqflite não suporta windows ou web.
 
-### Screenshots
-![Tela Filmes](/screenshots/screenshot_01.jpeg?raw=true "Tela Filmes")
-![Tela Personagens](/screenshots/screenshot_02.jpeg?raw=true "Tela Personagens")
-![Tela Favoritos](/screenshots/screenshot_03.jpeg?raw=true "Tela Favoritos")
-![Tela Avatar](/screenshots/screenshot_04.jpeg?raw=true "Tela Avatar")
-![Tela WebView](/screenshots/screenshot_05.jpeg?raw=true "Tela WebView")
+
 
 
 
